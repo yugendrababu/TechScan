@@ -1,0 +1,9 @@
+<techscan-header></techscan-header>
+<br>
+<div class="well well-lg">
+  <div class="list-group">
+  <a  *ngFor="let tech of techstack" routerLink="/techscan/repo/{{tech.language}}"  class="list-group-item" >
+  <img class="img-thumbnail" src="{{tech.Image}}" width="150" height="100" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: xx-large;font-family: fantasy;">  {{tech.language}}</span>
+  </a>
+ </div>
+</div>

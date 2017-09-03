@@ -1,0 +1,42 @@
+<techscan-header></techscan-header>
+<div class="container-fluid">
+<div class="well ">
+  <div class="row">
+    <div class="col-sm-4" >
+      <input  class="form-control input-lg" [(ngModel)]="searchText" type="text"  placeholder="Search/Filter Repository">
+
+    </div>
+  </div>
+</div>
+  <h2>{{totalRrepoDump}} repository results</h2>
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="well well-lg">
+        <div class="list-group">
+        <div  *ngFor="let repo of repoDetails | paginate: { itemsPerPage: 9, currentPage: p }| filter:searchText"   class="list-group-item" >
+          <div class="row">
+            <a class="col-sm-4" routerLink="/techscan/users/{{repo.owner.login}}" (click)=setData(repo); style="font-size: x-large; font-family: sans-serif; color:blue;"> {{repo.full_name}}</a>&nbsp; &nbsp;&nbsp;&nbsp;
+
+            <div  class="col-sm-4" [hidden]="!repo.language" style=" color:grey;"><span  style=" color:yellow;" class="  glyphicon glyphicon-unchecked"></span>{{repo.language}}</div>
+            <div  class="col-sm-3" [hidden]="!repo.watchers_count" style=" color:grey;"><span   class="glyphicon glyphicon-star"></span>{{repo.watchers_count}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">{{repo.description}}</div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-3" style="background-color: #ededed; font-style: italic;">Updated {{calculateDays(repo.updated_at)}} ago</div>
+          </div>
+          <br>
+        </div>
+       </div>
+       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+    <div class="col-sm-3" >
+        <div class="well well-lg">
+      <p>Top 9 repo's</p>
+    </div>
+    </div>
+  </div>
+</div>

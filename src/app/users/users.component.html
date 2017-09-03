@@ -1,0 +1,52 @@
+<techscan-header></techscan-header>
+<br>
+<div class="container-fluid">
+  <div class="well well-lg">
+  <div class="row">
+    <div class="col-sm-3" >
+        <div><img src="{{user.avatar_url}}"  class="img-thumbnail"  width="250" height="200"></div>
+        <div ><h2>{{user.name}}</h2></div>
+        <div style="color:grey;font-style:italic;"><h3>{{user.login}}</h3></div>
+        <div>{{user.bio}}  </div>
+        <div>{{user.company}}  </div>
+    </div>
+    <div class="col-sm-9" >
+      <div class="row">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <ul class="nav navbar-nav">
+              <li class="active" ><a href="#">Overview</a></li>
+              <li><a >Repositories</a></li>
+              <li><a >Followers&nbsp;&nbsp;<span class="badge">{{user.followers}}</span></a></li>
+              <li><a >Following&nbsp;&nbsp; <span class="badge">{{user.following}}</span></a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="">
+        <div class="list-group">
+        <div  *ngFor="let repo of userDump | paginate: { itemsPerPage: 9, currentPage: p }| filter:searchText"   class="list-group-item" >
+          <div class="row">
+            <a class="col-sm-4"   style="font-size: x-large; font-family: sans-serif; color:blue;"> {{repo.full_name}}</a>&nbsp; &nbsp;&nbsp;&nbsp;
+
+            <div  class="col-sm-4" [hidden]="!repo.language" style=" color:grey;"><span  style=" color:yellow;" class="  glyphicon glyphicon-unchecked"></span>{{repo.language}}</div>
+            <div  class="col-sm-3" [hidden]="!repo.watchers_count" style=" color:grey;"><span   class="glyphicon glyphicon-star"></span>{{repo.watchers_count}}</div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">{{repo.description}}</div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-3" style="background-color: #ededed; font-style: italic;">Updated {{calculateDays(repo.updated_at)}} ago</div>
+          </div>
+          <br>
+        </div>
+       </div>
+       <pagination-controls (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
